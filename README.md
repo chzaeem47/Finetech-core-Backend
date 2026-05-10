@@ -98,23 +98,23 @@ The API routing tree is split into clear, decoupled domains. All data transactio
 
 ➊ Authentication Domain (/api/auth)
 
-➡ POST /api/auth/register - Registers a brand new user profile on the system.
+- POST /api/auth/register - Registers a brand new user profile on the system.
 
-➡ POST /api/auth/login - Authenticates user credentials, signing and assigning a validation token.
+- POST /api/auth/login - Authenticates user credentials, signing and assigning a validation token.
 
-➡ POST /api/auth/logout - Terminates the target session cookie context cleanly or Blacklisting token
+- POST /api/auth/logout - Terminates the target session cookie context cleanly or Blacklisting token
 
 ➋ Accounts Domain (/api/accounts)
 
-➡ POST /api/accounts/ - Provisions a secure financial bank account tied to an authenticated profile. (Requires login).
+- POST /api/accounts/ - Provisions a secure financial bank account tied to an authenticated profile. (Requires login).
 
-➡ GET /api/accounts/balance/:accountId - Searches the relational data models to return current balance states safely.
+- GET /api/accounts/balance/:accountId - Searches the relational data models to return current balance states safely.
 
-➌ Transactions Domain (/api/transactions)
+- Transactions Domain (/api/transactions)
 
-➡ POST /api/transactions/ - Executes transaction data payloads (moving money securely between active user accounts).
+- POST /api/transactions/ - Executes transaction data payloads (moving money securely between active user accounts).
 
-➡ POST /api/transactions/system/initial-funds - Administrative core path to initialize global liquidity streams or seed core system accounts.
+- POST /api/transactions/system/initial-funds - Administrative core path to initialize global liquidity streams or seed core system accounts.
 
 ---
 
