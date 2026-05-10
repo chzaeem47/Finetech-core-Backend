@@ -67,7 +67,7 @@ async function sendRegistrationEmail(userEmail , name){
                 <h2>Hello ${name},</h2>
                 <p>Thank you for choosing <strong>FineTech-Banking</strong>. We are excited to help you manage your finances with ease and security.</p>
                 <p>Your account has been successfully registered. You can now log in to your dashboard to view your transactions, manage your profile, and more.</p>
-                <p>If you did not create this account, please ignore this email or contact our support team immediately.</p>
+                <p>If you did not create this account, please ignore this email or contact our support team immediately.<br><br>Regards,<br><strong>FineTech CEO</strong></p>
             </div>
             <div class="footer">
                 <p>&copy; 2026 FineTech-Banking System. All rights reserved.</p>

@@ -26,9 +26,10 @@ async function userRegister(req,res){
     res.cookie("token" , token)
 
     res.status(201).json({
+        message : "User Created Successfully",
         user:{
             id : user._id,
-            email : user.email,
+            email : user.email,  
             name : user.name
         },
         token
