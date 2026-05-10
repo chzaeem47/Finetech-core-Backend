@@ -42,12 +42,41 @@ const sendEmail = async (to, subject, text, html) => {
 
 async function sendRegistrationEmail(userEmail , name){
 
-    const subject = "FineTech-Banking ♥"
-    const text = `Hello ${name}, \n\nThankyou for registering at FineTech-Banking.
-    We're excited to having you on board!\n\nBest regards, \nFineTech-Banking Team`
+    const subject = "FineTech-Banking"
+    const text = `Hello ${name},\n\nWelcome to FineTech-Banking! Your account has been successfully created. 
+                  We are thrilled to have you with us.\n\nBest regards,\nThe FineTech-Banking Team`
 
-    const html = `<p>Hello ${name}, \n\nThankyou for registering at FineTech-Banking.
-    We're excited to having you on board!\n\nBest regards, \nFineTech-Banking Team</p>`
+    const html = `
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <style>
+            .container { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; max-width: 600px; margin: auto; border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden; }
+            .header { background-color: #1a73e8; color: white; padding: 20px; text-align: center; }
+            .content { padding: 30px; line-height: 1.6; color: #333; }
+            .button { display: inline-block; padding: 12px 24px; background-color: #1a73e8; color: white; text-decoration: none; border-radius: 4px; font-weight: bold; margin-top: 20px; }
+            .footer { background-color: #f8f9fa; color: #777; padding: 20px; text-align: center; font-size: 12px; }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="header">
+                <h1>FineTech-Banking</h1>
+            </div>
+            <div class="content">
+                <h2>Hello ${name},</h2>
+                <p>Thank you for choosing <strong>FineTech-Banking</strong>. We are excited to help you manage your finances with ease and security.</p>
+                <p>Your account has been successfully registered. You can now log in to your dashboard to view your transactions, manage your profile, and more.</p>
+                <p>If you did not create this account, please ignore this email or contact our support team immediately.</p>
+            </div>
+            <div class="footer">
+                <p>&copy; 2026 FineTech-Banking System. All rights reserved.</p>
+                <p>Secure. Reliable. Innovative.</p>
+            </div>
+        </div>
+    </body>
+    </html>
+    `;
 
     await sendEmail(userEmail , subject , text , html)
 }
