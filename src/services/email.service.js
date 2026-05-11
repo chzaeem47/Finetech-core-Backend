@@ -22,7 +22,6 @@ transporter.verify((error, success) => {
 });
 
 
-// Function to send email
 const sendEmail = async (to, subject, text, html) => {
   try {
     const info = await transporter.sendMail({
@@ -44,7 +43,7 @@ async function sendRegistrationEmail(userEmail , name){
 
     const subject = "FineTech-Banking"
     const text = `Hello ${name},\n\nWelcome to FineTech-Banking! Your account has been successfully created. 
-                  We are thrilled to have you with us.\n\nBest regards,\nThe FineTech-Banking Team`
+                  We are th93ehrilled to have you with us.\n\nBest regards,\nThe FineTech-Banking Team`
 
     const html = `
     <!DOCTYPE html>
