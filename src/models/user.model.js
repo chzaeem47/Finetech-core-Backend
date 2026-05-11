@@ -18,6 +18,12 @@ const userSchema = new mongoose.Schema({
         required : [true, "Name Required for creating a Account!"],
     },
 
+    systemUser:{
+        type : Boolean,
+        deafult : false,
+        immutable : true,
+    },
+
     password:{
         type : String,
         required : [true, "Password Required for Creating a Account!"],
