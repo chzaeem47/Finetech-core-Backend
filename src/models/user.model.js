@@ -20,8 +20,9 @@ const userSchema = new mongoose.Schema({
 
     systemUser:{
         type : Boolean,
-        deafult : false,
+        default : false,
         immutable : true,
+        select : false,
     },
 
     password:{
