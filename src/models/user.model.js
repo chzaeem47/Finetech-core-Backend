@@ -22,7 +22,7 @@ const userSchema = new mongoose.Schema({
         type : Boolean,
         default : false,
         immutable : true,
-        select : false,
+        select : false
     },
 
     password:{
