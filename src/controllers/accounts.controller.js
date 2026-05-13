@@ -17,6 +17,7 @@ async function createAccountController(req, res) {
         return res.status(201).json({
             message: "Bank account created successfully",
             account
+            
         });
 
     } catch (error) {
@@ -28,4 +29,27 @@ async function createAccountController(req, res) {
     }
 }
 
-module.exports = { createAccountController };
+async function getAccountBalanceController(req,res){
+
+    const {accountId} = req.params;
+
+    const account = await accountModel.findOne({
+        _id : accountId,
+        user : req.user._id
+    })
+
+    if(!account){
+        return res.status(404).json({
+            message : "Account not Found!"
+        })
+    }
+
+    const balance = await account.getBalance();
+
+    res.status(200).json({
+        accountId : account._id,
+        balance : balance
+    })
+}
+
+module.exports = { createAccountController , getAccountBalanceController };

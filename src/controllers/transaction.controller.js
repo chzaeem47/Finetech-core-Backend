@@ -23,11 +23,11 @@ async function createTransaction(req,res){
         
         const fromUserAccount = await accountModel.findOne({
             _id : fromAccount 
-        })
+        }).populate('user')
 
         const toUserAccount = await accountModel.findOne({
             _id : toAccount 
-        })
+        }).populate('user')
 
         if(!toUserAccount || !fromUserAccount ){
             return res.status(400).json({
@@ -112,29 +112,36 @@ async function createTransaction(req,res){
         await transaction.save({session})
 
         await session.commitTransaction();
-        session.endSession();
-
-        /**
-        * SEND EMAIL NOTIFICATION
-        */
-        await emailService.sendTransactionEmail(req.user.email , req.user.name , amount , toAccount)
-
-        res.status(201).json({
-            message : "Transaction completed Successfully",
-            transaction : transaction
-        })
 
     } catch (error) {
+
+    if (session.inTransaction()) {
         await session.abortTransaction();
-        session.endSession();
-        
-        await emailService.sendFailedTransactionEmail(req.user.email, req.body.amount, req.body.toAccount);
-        
-        res.status(500).json({
-            message: "Transaction failed",
-            error: error.message
-        });
     }
+        console.error("Transaction Error:", error);
+        res.status(500).json({ message: "Transaction failed", error: error.message });
+
+    } finally {
+    
+    await session.endSession();
+
+    }
+
+    await emailService.sendTransactionEmail(
+    req.user.email, 
+    toAccount, 
+    req.user.name, 
+    amount
+    );
+
+    if (toUserAccount && toUserAccount.user) {
+    await emailService.sendTransactionEmail(
+        toUserAccount.user.email, 
+        fromAccount, 
+        toUserAccount.user.name, 
+        amount
+    );
+}
 }
 
 async function createInitialFundTransaction(req,res){
@@ -204,19 +211,12 @@ async function createInitialFundTransaction(req,res){
         amount
         );
 
-        await emailService.sendReceiverEmail(
-            toUserAccount.user.email, 
-            "System Treasury", 
-            toUserAccount.user.name, 
-            amount
-        );
-
         return res.status(201).json({
-            message : "Initial fund Transaction Completed"
+            
+            message : "Initial fund Transaction Completed",
         })
     } catch (error) {
-        await session.abortTransaction();
-        session.endSession();
+
         res.status(500).json({ message: "Initial funding failed", error: error.message });
     }
 }
