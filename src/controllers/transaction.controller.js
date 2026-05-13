@@ -92,8 +92,12 @@ async function createTransaction(req,res){
     }
 
     /**
-     * CHECK SENDER ACCOUNT BALANCE : 
-     */
+    * CHECK SENDER ACCOUNT BALANCE : 
+    */
+
+    const balance = await fromUserAccount.getBalance()
+
+    }
 
     
 

@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const ledgerModel = require('./ledger.model')
 
 const accountSchema = new mongoose.Schema({
 
@@ -29,6 +30,12 @@ const accountSchema = new mongoose.Schema({
 })
 
 accountSchema.index({ user:1 , status:1 })
+
+accountSchema.methods.getBalance = async function(){
+
+    
+
+}
 
 const accountModel = mongoose.model("account" , accountSchema)
 
