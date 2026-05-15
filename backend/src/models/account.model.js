@@ -9,6 +9,12 @@ const accountSchema = new mongoose.Schema({
         required : [true , "Account must be associated with a user!"],
         index : true  // We can find users fastly
     },
+    
+    userName: {
+        type: String,
+        required: [true, "User name is required for the account record"],
+        trim: true
+    },
 
     status: {
         type : String,

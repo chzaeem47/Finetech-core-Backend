@@ -1,6 +1,7 @@
 const userModel = require('../models/user.model')
 const jwt = require('jsonwebtoken')
 const {sendRegistrationEmail} = require('../services/email.service')
+const tokenBlackListModel = require('../models/blackList.model')
 
 async function userRegister(req,res){
     
@@ -21,7 +22,7 @@ async function userRegister(req,res){
         email,password,name
     })
 
-    const token = jwt.sign({userId : user._id},process.env.JWt_SECRET,{expiresIn : "3d"})
+    const token = jwt.sign({userId : user._id},process.env.JWT_SECRET,{expiresIn : "3d"})
 
     res.cookie("token" , token)
 
@@ -52,10 +53,10 @@ async function loginUser(req,res){
     const isValidPassword = await user.comparePassword(password)
 
     if(!isValidPassword){
-        res.status(401).json({message : "Password is Incorrect"})
+        return res.status(401).json({message : "Password is Incorrect"})
     }
 
-    const token = jwt.sign({userId : user._id},process.env.JWt_SECRET,{expiresIn : "3d"})
+    const token = jwt.sign({userId : user._id},process.env.JWT_SECRET,{expiresIn : "3d"})
 
     res.cookie("token" , token)
     res.status(200).json({
@@ -70,4 +71,25 @@ async function loginUser(req,res){
 
 }
 
-module.exports = {userRegister , loginUser}
+async function logoutUser(req,res){
+
+    const token = req.cookies.token || req.headers.authorization?.split(" ")[1];
+
+    if(!token){
+        return res.status(200).json({
+            message : "User Already Logout"
+        })
+    }
+
+    await tokenBlackListModel.create({
+        token : token
+    })
+
+    res.clearCookie("token")
+
+    return res.status(200).json({
+        message : "User logout Successfully"
+    })
+}
+
+module.exports = {userRegister , loginUser , logoutUser}

@@ -125,7 +125,8 @@ async function createTransaction(req,res){
         req.user.email, 
         toAccount, 
         req.user.name, 
-        amount
+        amount,
+        "DEBIT"
         );
 
         if (toUserAccount && toUserAccount.user) {
@@ -133,7 +134,8 @@ async function createTransaction(req,res){
         toUserAccount.user.email, 
         fromAccount, 
         toUserAccount.user.name, 
-        amount
+        amount,
+        "CREDIT"
 
         );}
 

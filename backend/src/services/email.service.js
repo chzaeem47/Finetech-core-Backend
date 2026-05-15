@@ -80,13 +80,19 @@ async function sendRegistrationEmail(userEmail , name){
     await sendEmail(userEmail , subject , text , html)
 }
 
-async function sendTransactionEmail(userEmail, toAccount, name, amount) {
+async function sendTransactionEmail(userEmail, otherAccount, name, amount, type) {
   const subject = `Transaction Successful!`;
-  const text = `Hello ${name}, an amount of ${amount} PKR was sent to account ${toAccount} successfully.`;
-  const html = `<p>${text}</p>`;
   
-  // You must actually call the helper function!
+  // Dynamic text based on DEBIT (sender) or CREDIT (receiver)
+  const message = type === "DEBIT" 
+    ? `sent to account ${otherAccount}` 
+    : `received from account ${otherAccount}`;
+
+  const text = `Hello ${name}, an amount of ${amount} PKR was ${message} successfully.`;
+  const html = `<h3>Transaction Notification</h3><p>${text}</p>`;
+  
   await sendEmail(userEmail, subject, text, html); 
+  
 }
 
 async function sendFailedTransactionEmail(userEmail, amount, toAccount) {

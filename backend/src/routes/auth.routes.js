@@ -15,4 +15,10 @@ router.post('/register' ,authController.userRegister)
  */
 router.post('/login' , authController.loginUser)
 
+/**
+* -- LOGOUT 
+* -- /api/auth/logout 
+*/
+router.post('/logout' , authController.logoutUser)
+
 module.exports = router
