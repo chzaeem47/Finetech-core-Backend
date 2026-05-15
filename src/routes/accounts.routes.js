@@ -4,10 +4,18 @@ const accountController = require('../controllers/accounts.controller')
 
 const accountRouter = express.Router();
 
+///api/accounts
+
+/**
+* -- CREATE BANK ACCOUNT CONTROLLER
+* -- /api/accounts/ 
+*/
+
 accountRouter.post('/' , authMiddleWare , accountController.createAccountController)
 
 /**
- * GET /api/accounts/balance/:accountId
+* -- GET ACCOUNT BALANCE ROUTER
+* -- /api/accounts/balance/:accountId
 */
 
 accountRouter.get('/balance/:accountId' , authMiddleWare , accountController.getAccountBalanceController)

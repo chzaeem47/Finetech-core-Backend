@@ -108,10 +108,36 @@ async function createTransaction(req,res){
             type : "CREDIT",
         }], {session})
 
+
+        /**
+         * SESSION COMPLETED
+        */
+
         transaction.transactionStatus = "COMPLETED"; 
         await transaction.save({session})
 
         await session.commitTransaction();
+
+        /**
+        * SENDING EMAIL TO RECIEVER AND SENDER
+        */
+        await emailService.sendTransactionEmail(
+        req.user.email, 
+        toAccount, 
+        req.user.name, 
+        amount
+        );
+
+        if (toUserAccount && toUserAccount.user) {
+        await emailService.sendTransactionEmail(
+        toUserAccount.user.email, 
+        fromAccount, 
+        toUserAccount.user.name, 
+        amount
+
+        );}
+
+    return res.status(201).json({message : "Transaction Completed Successfully"})
 
     } catch (error) {
 
@@ -127,22 +153,11 @@ async function createTransaction(req,res){
 
     }
 
-    await emailService.sendTransactionEmail(
-    req.user.email, 
-    toAccount, 
-    req.user.name, 
-    amount
-    );
+}
 
-    if (toUserAccount && toUserAccount.user) {
-    await emailService.sendTransactionEmail(
-        toUserAccount.user.email, 
-        fromAccount, 
-        toUserAccount.user.name, 
-        amount
-    );
-}
-}
+/**
+ * SYSTEM ACCOUNT TRANSACTION FUNCTION
+ */
 
 async function createInitialFundTransaction(req,res){
     const session = await mongoose.startSession(); 

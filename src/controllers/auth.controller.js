@@ -49,7 +49,7 @@ async function loginUser(req,res){
         return res.status(401).json({message : "Singup or Login First"})
     }
 
-    const isValidPassword = user.comparePassword(password)
+    const isValidPassword = await user.comparePassword(password)
 
     if(!isValidPassword){
         res.status(401).json({message : "Password is Incorrect"})

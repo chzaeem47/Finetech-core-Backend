@@ -6,7 +6,7 @@ const transactionController = require('../controllers/transaction.controller')
 
 /**
  * - POST API FOR TRANSACTION
- * - /api/transaction/
+ * - /api/transactions/
  */
 
 transactionRouter.post('/' ,authMiddleWare.authMiddleWare, transactionController.createTransaction , )

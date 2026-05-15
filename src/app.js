@@ -11,12 +11,19 @@ const app = express();
 app.use(express.json())
 app.use(cookieParser())
 
-app.use('/api/auth', authRouter)
 /**
- * /api/accounts for opening an account in accounts for transaction
- */
+* -- LOGIN,REGISTER ROUTER
+*/
+app.use('/api/auth', authRouter)
+
+/**
+* -- GET ACCOUNT BALANCE,CREATE ACCOUNT ROUTER
+*/
 app.use('/api/accounts' , accountRouter)
 
+/**
+* -- TRANSACTION ROUTER
+*/
 app.use('/api/transactions' , transactionRouter)
 
 module.exports = app
