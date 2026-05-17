@@ -1,13 +1,17 @@
-# Finetech Core Backend 🏦💼
+# Finetech Core Backend💼
 
 Finetech Core Backend is a highly secure, transaction-safe banking engine built with Node.js and Express. It features a professional, MVC-inspired directory architecture managing authentication layers, dynamic bank account provisioning, double-entry financial bookkeeping logic, and automated transaction communication alerts.
 
 ## ✨ Features
 
 * **🔐 Session Security & Isolation:** User registration, password encryption via `bcryptjs`, and secure session tracking via signed `jsonwebtoken` (JWT) passed through HTTP-Only cookies using `cookie-parser`.
+
 * **📊 Account Management:** Middleware-protected routes to dynamically provision user bank accounts and retrieve real-time account balances.
+
 * **💸 Atomic Transaction Layer:** Ledger transfer systems built to manage credits, debits, and a centralized system initialization account safely without database or balance state fragmentation.
+
 * **📧 Automated Notifications:** Embedded `nodemailer` communication layer to alert users when critical financial events occur.
+
 * **🗃️ Persistent Data Management:** Structured schemas utilizing `mongoose` to maintain strict validation definitions for users, financial accounts, and ledgers.
 
 ---
@@ -48,10 +52,15 @@ check package.json or package-lock.json for exact packages to install
 Create a file named exactly `.env` in the root folder of your project workspace and provide your configuration secrets:
 
 MONGOOSE_URI = your mongoose connection string
+
 JWT_SECRET = your jwt secret
+
 CLIENT_ID= for nodemailer client id
+
 CLIENT_SECRET= for nodemailer client secret
+
 REFRESH_TOKEN= for nodemailer refresh token
+
 EMAIL_USER = for nodemailer email_user
 
 ---
@@ -87,25 +96,25 @@ Here is an overview of how the backend routes, validations, and data controllers
 ### 5. Detailed API Route Map
 The API routing tree is split into clear, decoupled domains. All data transactions (except public login/register routes) require an active user verification payload through the authMiddleWare validation layer:
 
-🔐 Authentication Domain (/api/auth)
+➊ Authentication Domain (/api/auth)
 
-POST /api/auth/register - Registers a brand new user profile on the system.
+➡ POST /api/auth/register - Registers a brand new user profile on the system.
 
-POST /api/auth/login - Authenticates user credentials, signing and assigning a validation token.
+➡ POST /api/auth/login - Authenticates user credentials, signing and assigning a validation token.
 
-POST /api/auth/logout - Terminates the target session cookie context cleanly or Blacklisting token
+➡ POST /api/auth/logout - Terminates the target session cookie context cleanly or Blacklisting token
 
-💳 Accounts Domain (/api/accounts)
+➋ Accounts Domain (/api/accounts)
 
-POST /api/accounts/ - Provisions a secure financial bank account tied to an authenticated profile. (Requires login).
+➡ POST /api/accounts/ - Provisions a secure financial bank account tied to an authenticated profile. (Requires login).
 
-GET /api/accounts/balance/:accountId - Searches the relational data models to return current balance states safely.
+➡ GET /api/accounts/balance/:accountId - Searches the relational data models to return current balance states safely.
 
-💸 Transactions Domain (/api/transactions)
+➌ Transactions Domain (/api/transactions)
 
-POST /api/transactions/ - Executes transaction data payloads (moving money securely between active user accounts).
+➡ POST /api/transactions/ - Executes transaction data payloads (moving money securely between active user accounts).
 
-POST /api/transactions/system/initial-funds - Administrative core path to initialize global liquidity streams or seed core system accounts.
+➡ POST /api/transactions/system/initial-funds - Administrative core path to initialize global liquidity streams or seed core system accounts.
 
 ---
 
