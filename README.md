@@ -132,4 +132,4 @@ Contributions make the engineering space an amazing ecosystem to learn, iterate,
 •Open a Pull Request
 
 ### License
-This banking project is open-source software licensed under the MIT License - see the LICENSE file for details.
+This banking project is open-source software licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
