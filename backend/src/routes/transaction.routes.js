@@ -18,4 +18,6 @@ transactionRouter.post('/' ,authMiddleWare.authMiddleWare, transactionController
 
 transactionRouter.post('/system/initial-funds' ,authMiddleWare.authSystemUserMiddleWare,transactionController.createInitialFundTransaction)
 
+transactionRouter.get('/me', authMiddleWare.authMiddleWare, transactionController.getMyTransactions)
+
 module.exports = transactionRouter

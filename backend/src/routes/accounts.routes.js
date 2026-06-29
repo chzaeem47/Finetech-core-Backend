@@ -10,7 +10,7 @@ const accountRouter = express.Router();
 * -- CREATE BANK ACCOUNT CONTROLLER
 * -- /api/accounts/ 
 */
-
+accountRouter.get('/', authMiddleWare, accountController.getAllAccountsController)
 accountRouter.post('/' , authMiddleWare , accountController.createAccountController)
 
 /**

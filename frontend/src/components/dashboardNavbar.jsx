@@ -3,9 +3,10 @@ import { IoIosNotifications } from "react-icons/io";
 import { FaUserCircle } from "react-icons/fa";
 import { MdOutlineKeyboardArrowDown } from "react-icons/md";
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { logout } from '../features/authSlice';
 import api from '../api/api.js'
+
 
 
 const DashboardNavbar = ({notificationCount,notificationMessage}) => {
@@ -17,6 +18,7 @@ const DashboardNavbar = ({notificationCount,notificationMessage}) => {
 
   const dispatch = useDispatch()
   const navigate = useNavigate()
+  const location = useLocation()
 
   async function handleLogout(){
 
@@ -41,18 +43,70 @@ const DashboardNavbar = ({notificationCount,notificationMessage}) => {
         <div className='bg-[url("/fintech-text.png")] w-70 h-11 bg-center bg-cover relative right-8 top-2'></div>
 
 
-        <div className="relative left-25 flex justify-between items-center gap-20">
+    {/*DIV CONTAINS ALL NAVBAR TABS*/}
+    <div className="relative left-25 flex items-center gap-20 h-20">
 
-            <button className="text-white text-2xl font-serif pb-9 relative top-5">Dashboard</button>
-            <span className="absolute bottom-0 left-0 w-30 h-[2px] rounded-full bg-cyan-500 shadow-[0_0_10px_5px_rgba(29,78,216,0.9)]"></span>
+    {/*DASHBOARD TAB*/}
+    <div className="relative h-full flex items-center">
+    <button type="button" onClick={() => navigate("/dashboard")}
+      className={`text-2xl font-serif pb-2 transition-all duration-300 
+      ${
+      location.pathname === "/dashboard"
+          ? "text-cyan-300"
+          : "text-white"
+      }`}>
+      Dashboard
+    </button>
 
-            <button className="text-white text-2xl font-serif pb-9 relative top-5">Accounts</button>
+    {location.pathname === "/dashboard" && (
+      <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-30 h-[2px] rounded-full bg-cyan-500 shadow-[0_0_10px_5px_rgba(29,78,216,0.9)]"></span>
+    )}
 
-            <button className="text-white text-2xl font-serif pb-9 relative top-5">Transactions</button>
+    </div>
 
-            <button className="text-white text-2xl font-serif pb-9 relative top-5">Initial Funds</button>
+  {/*ACCOUNTS TAB*/}
+  <div className="relative h-full flex items-center">
+    <button type="button" onClick={() => navigate("/accounts")}
+      className={`text-2xl font-serif pb-2 transition-all duration-300 
+        ${
+        location.pathname === "/accounts"
+          ? "text-cyan-300"
+          : "text-white"
 
-        </div>
+      }`}>Accounts</button>
+
+    {location.pathname === "/accounts" && (
+      <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-30 h-[2px] rounded-full bg-cyan-500 shadow-[0_0_10px_5px_rgba(29,78,216,0.9)]"></span>
+    )}
+  </div>
+
+  {/*TRANSACTION TAB*/}
+  <div className="relative h-full flex items-center">
+    <button type="button" onClick={() => navigate("/transactions")}
+      className={`text-2xl font-serif pb-2 transition-all duration-300 
+        ${
+        location.pathname === "/transactions"
+          ? "text-cyan-300"
+          : "text-white"
+
+      }`}>Transactions</button>
+
+    {location.pathname === "/transactions" && (
+      <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-30 h-[2px] rounded-full bg-cyan-500 shadow-[0_0_10px_5px_rgba(29,78,216,0.9)]"></span>
+    )}
+  </div>
+
+  {/*INITIAL FUND TAB*/}
+  <div className="relative h-full flex items-center">
+    <button
+      type="button"
+      className="text-white text-2xl font-serif pb-2"
+    >
+      Initial Funds
+    </button>
+  </div>
+
+</div>
 
         <div className='w-100 h-20 relative left-38 rounded-3xl flex items-center'>
 

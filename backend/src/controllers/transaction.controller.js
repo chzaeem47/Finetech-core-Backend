@@ -238,4 +238,41 @@ async function createInitialFundTransaction(req,res){
     }
 }
 
-module.exports = { createTransaction, createInitialFundTransaction }
+async function getMyTransactions(req, res) {
+    try {
+        const myAccount = await accountModel.findOne({
+            user: req.user._id
+        });
+
+        if (!myAccount) {
+            return res.status(404).json({
+                message: "Account not found"
+            });
+        }
+
+        const transactions = await transactionModel
+            .find({
+                $or: [
+                    { fromAccount: myAccount._id },
+                    { toAccount: myAccount._id }
+                ]
+            })
+            .populate("fromAccount", "userName")
+            .populate("toAccount", "userName")
+            .sort({ createdAt: -1 });
+
+        return res.status(200).json({
+            message: "Transactions fetched successfully",
+            myAccountId: myAccount._id,
+            transactions
+        });
+
+    } catch (error) {
+        return res.status(500).json({
+            message: "Failed to fetch transactions",
+            error: error.message
+        });
+    }
+}
+
+module.exports = { createTransaction, createInitialFundTransaction,getMyTransactions }

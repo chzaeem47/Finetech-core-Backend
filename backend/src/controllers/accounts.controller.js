@@ -80,5 +80,40 @@ async function getMyAccountController(req, res) {
         });
     }
 }
+async function getAllAccountsController(req, res) {
+    try {
+        const accounts = await accountModel
+            .find()
+            .populate("user", "name email");
 
-module.exports = { createAccountController , getAccountBalanceController,getMyAccountController };
+        const accountsWithBalance = await Promise.all(
+            accounts.map(async (account) => {
+                const balance = await account.getBalance();
+
+                return {
+                    _id: account._id,
+                    userName: account.userName,
+                    status: account.status,
+                    balance: balance,
+                    user: account.user,
+                    createdAt: account.createdAt
+                };
+            })
+        );
+
+        return res.status(200).json({
+            message: "Accounts fetched successfully",
+            accounts: accountsWithBalance
+        });
+
+    } catch (error) {
+        return res.status(500).json({
+            message: "Failed to fetch accounts",
+            error: error.message
+        });
+    }
+}
+
+module.exports = { createAccountController , getAccountBalanceController,getMyAccountController
+    ,getAllAccountsController
+ };
