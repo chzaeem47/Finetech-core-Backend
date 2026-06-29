@@ -15,9 +15,9 @@ const AccountStatus = () => {
       "
     >
       
-    <FaShieldAlt size={28} className="text-cyan-300 relative top-4 left-5" />
+    <FaShieldAlt size={28} className="text-cyan-300 relative top-[18px] left-7" />
     
-    <h1 className="text-white text-2xl font-serif  absolute left-14 top-[13px]">Account Status</h1>
+    <h1 className="text-white text-2xl font-serif  absolute left-16 top-[16px]">Account Status</h1>
 
     <div className='bg-[url("/secure-logo.png")] w-30 h-30 bg-cover bg-center rounded-full relative top-10 left-4'></div>
      

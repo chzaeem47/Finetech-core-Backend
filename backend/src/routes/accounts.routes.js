@@ -20,4 +20,6 @@ accountRouter.post('/' , authMiddleWare , accountController.createAccountControl
 
 accountRouter.get('/balance/:accountId' , authMiddleWare , accountController.getAccountBalanceController)
 
+accountRouter.get('/me', authMiddleWare, accountController.getMyAccountController)
+
 module.exports = accountRouter

@@ -2,7 +2,7 @@ import React from 'react'
 import QuickTransfer from './dashboardQuickTransfer'
 import AccountStatus from './dashBoardAccDetail'
 
-const DashboardBody = () => {
+const DashboardBody = ({user,account,onTransferSuccess}) => {
   return (
     <div className='bg-[#020b1f]/85 w-[94%] h-60 relative left-13 top-12 rounded-3xl border-2 border
     border border-blue-400/40
@@ -11,7 +11,8 @@ const DashboardBody = () => {
        
 
     <h1 className='text-white font-serif text-4xl relative top-8 left-10'>Have a Nice Day{" "}
-    <span className="text-cyan-400">Zaeem</span></h1>
+    <span className="text-cyan-400">{user?.name || "User"}</span></h1>
+
     <span className='text-cyan-400 font-serif text-[20px] relative top-8 left-10'>Welcome to FineTech Banking</span>
     <span className='text-white font-sans relative top-21 right-57'>Here's what happening with your finance today</span>
 
@@ -27,9 +28,14 @@ const DashboardBody = () => {
     Explore Banking</button>
 
     <div className='bg-[url("/dashboard-side.png")]
-    w-200 h-59 bg-cover bg-center relative left-[50%] bottom-20 rounded-3xl'></div>
+    w-200 h-59 bg-cover bg-center relative left-[50%] bottom-20 rounded-3xl
+    '></div>
 
-    <QuickTransfer />
+    <QuickTransfer 
+      account={account}
+      onTransferSuccess={onTransferSuccess}
+    />
+
     <AccountStatus />
       
     </div>
