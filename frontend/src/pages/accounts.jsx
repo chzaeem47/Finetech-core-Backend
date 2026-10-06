@@ -4,7 +4,6 @@ import AccountsList from "../components/accountsList";
 import api from "../api/api.js";
 
 const Accounts = () => {
-
   const [accounts, setAccounts] = useState([])
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState("")
@@ -15,7 +14,6 @@ const Accounts = () => {
       setError("")
 
       const response = await api.get("/api/accounts")
-
       setAccounts(response.data.accounts)
 
     } catch (error) {
@@ -31,18 +29,19 @@ const Accounts = () => {
   }, [])
 
   return (
-    <div className='bg-[url("/dashboard-bg.jpeg")] w-screen bg-center bg-cover overflow-x-hidden pb-20'>
+    <div className='bg-[url("/dashboard-bg.jpeg")] w-full min-h-screen bg-center bg-cover bg-fixed overflow-x-hidden pb-20'>
 
       <DashboardNavbar 
         notificationCount={0}
         notificationMessage=""
       />
     
-      <div className="relative top-10 left-10">
+      {/* Replaced relative positioning with clean padding wrapper */}
+      <div className="px-10 pt-10">
         
-        <div className="bg-[url('/acounts-bg.png')] w-[95%] h-48 bg-cover bg-center rounded-4xl"></div>
+        <div className="bg-[url('/acounts-bg.png')] w-full h-48 bg-cover bg-center rounded-3xl"></div>
 
-        <div className="mt-6 w-80 h-20 rounded-3xl bg-[#020817]/90 border border-cyan-400/30 flex flex-col justify-center px-6 shadow-[0_0_18px_rgba(37,99,235,0.35)] relative bottom-3 left-2">
+        <div className="mt-6 w-80 h-20 rounded-3xl bg-[#020817]/90 border border-cyan-400/30 flex flex-col justify-center px-6 shadow-[0_0_18px_rgba(37,99,235,0.35)] relative -top-3">
           <p className="text-slate-400 font-serif">Total Accounts</p>
           <h2 className="text-white text-3xl font-serif relative bottom-1 left-1">{accounts.length}</h2>
         </div>
